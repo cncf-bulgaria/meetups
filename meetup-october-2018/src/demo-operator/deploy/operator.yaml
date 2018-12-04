@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: demo-operator
+  template:
+    metadata:
+      labels:
+        name: demo-operator
+    spec:
+      serviceAccountName: demo-operator
+      containers:
+        - name: demo-operator
+          # Replace this with the built image name
+          image: galexandrov/demo-app-operator
+          ports:
+          - containerPort: 60000
+            name: metrics
+          command:
+          - demo-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "demo-operator"
