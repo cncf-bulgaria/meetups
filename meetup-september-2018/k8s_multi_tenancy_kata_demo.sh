@@ -5,6 +5,8 @@
 sudo swapoff -a
 
 # install Kata containers
+ARCH=$(arch)
+BRANCH="${BRANCH:-master}"
 sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/katacontainers:/release/xUbuntu_$(lsb_release -rs)/ /' > /etc/apt/sources.list.d/kata-containers.list"
 sudo curl -sL  http://download.opensuse.org/repositories/home:/katacontainers:/release/xUbuntu_$(lsb_release -rs)/Release.key | sudo apt-key add -
 sudo -E apt-get update
@@ -12,7 +14,7 @@ sudo -E apt-get -y install kata-runtime kata-proxy kata-shim
 
 # containerd
 
-export VERSION=1.1.3
+export VERSION=1.2.6
 sudo apt-get update
 sudo apt-get install libseccomp2
 wget https://storage.googleapis.com/cri-containerd-release/cri-containerd-${VERSION}.linux-amd64.tar.gz
@@ -34,7 +36,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 # init the cluster
-sudo kubeadm init --skip-preflight-checks --cri-socket /run/containerd/containerd.sock --pod-network-cidr=10.244.0.0/16
+sudo kubeadm init --ignore-preflight-errors=all --cri-socket /run/containerd/containerd.sock --pod-network-cidr=10.244.0.0/16
 
 #echo "KUBELET_EXTRA_ARGS=--container-runtime=remote --runtime-request-timeout=15m --container-runtime-endpoint=unix:///run/containerd/containerd.sock" > /etc/default/kubelet
 #systemctl daemon-reload
