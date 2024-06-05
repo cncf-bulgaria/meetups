@@ -7,7 +7,7 @@ Here are all of the materials you need to complete the CNCF OWASP Top 10 Kuberne
 
 ## Workshop Guides
 
-In this repository, you can find two files:
+In this folder, you can find two files:
 
 > Note: Please DON'T open the cncf-owasp-k8s-top-10-k01-solution.md till the end of the workshop!
 
