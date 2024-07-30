@@ -1,0 +1,10 @@
+spec: v0.6
+
+runtime: base:latest
+#unikraft:
+#  version: stable
+
+rootfs: ./Dockerfile
+
+cmd: ["/server"]
+

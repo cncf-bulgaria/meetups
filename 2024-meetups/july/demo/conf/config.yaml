@@ -1,0 +1,6 @@
+ip_address: "0.0.0.0"
+db_host: "mariadb.internal"
+db_port: "3306"
+db_user: "app_user"
+db_pass: "app_password"
+db_name: "company_db"
